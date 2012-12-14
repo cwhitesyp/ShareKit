@@ -124,13 +124,15 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 }
 
 - (void)saveItemForLater:(SHKSharerPendingAction)inPendingAction{
-	NSMutableDictionary *itemRep = [NSMutableDictionary dictionaryWithDictionary:[self.item dictionaryRepresentation]];
-	if (item.image)
-	{
-		[itemRep setObject:[SHKFacebook storedImagePath:item.image] forKey:@"imagePath"];
-	}
-	[itemRep setObject:[NSNumber numberWithInt:inPendingAction] forKey:kSHKStoredActionKey];
-	[[NSUserDefaults standardUserDefaults] setObject:itemRep forKey:kSHKStoredItemKey];
+    if (nil != self.item) {
+        NSMutableDictionary *itemRep = [NSMutableDictionary dictionaryWithDictionary:[self.item dictionaryRepresentation]];
+        if (item.image)
+        {
+            [itemRep setObject:[SHKFacebook storedImagePath:item.image] forKey:@"imagePath"];
+        }
+        [itemRep setObject:[NSNumber numberWithInt:inPendingAction] forKey:kSHKStoredActionKey];
+        [[NSUserDefaults standardUserDefaults] setObject:itemRep forKey:kSHKStoredItemKey];
+    }
 }
 
 
@@ -373,7 +375,6 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
         SHKSharer *iosSharer = [SHKiOSFacebook shareItem:self.item];
         iosSharer.quiet = self.quiet;
         iosSharer.shareDelegate = self.shareDelegate;
-        [SHKFacebook logout];
         
     } else {
         

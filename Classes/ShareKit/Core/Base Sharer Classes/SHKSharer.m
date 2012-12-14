@@ -177,7 +177,6 @@
 	if (self = [super initWithNibName:nil bundle:nil])
 	{
 		self.shareDelegate = [[[SHKSharerDelegate alloc] init] autorelease];
-		self.item = [[[SHKItem alloc] init] autorelease];
 				
 		if ([self respondsToSelector:@selector(modalPresentationStyle)])
 			self.modalPresentationStyle = [SHK modalPresentationStyleForController:self];
