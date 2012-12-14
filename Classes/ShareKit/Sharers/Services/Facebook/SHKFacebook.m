@@ -158,7 +158,8 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
     
     if (allowLoginUI || (session.state == FBSessionStateCreatedTokenLoaded)) {
         
-		if (allowLoginUI) [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
+		if (allowLoginUI)
+            [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
         
         [FBSession setActiveSession:session];
         [session openWithBehavior:FBSessionLoginBehaviorUseSystemAccountIfPresent
