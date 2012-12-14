@@ -26,7 +26,6 @@
 //
 //
 
-#import "SHKiOSFacebook.h"
 #import "SHKFacebook.h"
 #import <FacebookSDK.h>
 #import "SHKConfiguration.h"
@@ -370,35 +369,6 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 #pragma mark -
 #pragma mark Share API Methods
 
-- (void)share {
-    
-    if ([self socialFrameworkAvailable]) {
-        
-        SHKSharer *iosSharer = [SHKiOSFacebook shareItem:self.item];
-        iosSharer.quiet = self.quiet;
-        iosSharer.shareDelegate = self.shareDelegate;
-        
-    } else {
-        
-        [super share];
-    }   
-}
-
-- (BOOL)socialFrameworkAvailable {
-    
-    if ([SHKCONFIG(forcePreIOS6FacebookPosting) boolValue])
-    {
-        return NO;
-    }
-    
-	if (NSClassFromString(@"SLComposeViewController"))
-    {
-		return YES;
-	}
-	
-	return NO;
-}
-
 -(void) sendDidCancel
 {
 	[super sendDidCancel];
@@ -639,7 +609,9 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 
 - (void)show
 {
-	BOOL tryToPresent = ![SHKCONFIG(forcePreIOS6FacebookPosting) boolValue] && [FBNativeDialogs canPresentShareDialogWithSession:[FBSession activeSession]];
+    BOOL forcePreIOS6FacebookPosting = [SHKCONFIG(forcePreIOS6FacebookPosting) boolValue];
+    BOOL canPresentShareDialogWithSession = [FBNativeDialogs canPresentShareDialogWithSession:[FBSession activeSession]];
+	BOOL tryToPresent = !forcePreIOS6FacebookPosting && canPresentShareDialogWithSession;
 	if(tryToPresent){	// if there's a shot
 		if ([FBSession.activeSession.permissions
 			 indexOfObject:@"publish_actions"] == NSNotFound) {	// we need at least this.SHKCONFIG(facebookWritePermissions
