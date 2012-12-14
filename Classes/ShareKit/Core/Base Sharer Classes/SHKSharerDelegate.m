@@ -48,12 +48,12 @@
 
 - (void)sharerCancelledSending:(SHKSharer *)sharer
 {
-
+    NSLog(@"sharerCancelledSending");
 }
 
 - (void)sharerAuthDidFinish:(SHKSharer *)sharer success:(BOOL)success
 {
-
+    NSLog(@"sharerAuthDidFinish");
 }
 
 - (void)sharerShowBadCredentialsAlert:(SHKSharer *)sharer
