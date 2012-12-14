@@ -164,7 +164,8 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
         [FBSession setActiveSession:session];
         [session openWithBehavior:FBSessionLoginBehaviorUseSystemAccountIfPresent
 				completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-					if (allowLoginUI) [[SHKActivityIndicator currentIndicator] hide];
+					if (allowLoginUI)
+                        [[SHKActivityIndicator currentIndicator] hide];
 					[self sessionStateChanged:session state:state error:error];
 				}];
         result = session.isOpen;
